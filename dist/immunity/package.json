@@ -1,0 +1,103 @@
+{
+    "name": "jsmake-stack",
+    "description": "all jsmake components in single repository",
+    "keywords": [
+        "jsmake",
+        "stack",
+        "functional",
+        "immutable",
+        "library",
+        "ponyfills",
+        "immunity",
+        "evangelist",
+        "enthusiast",
+        "servicemanager",
+        "cofounder",
+        "senior",
+        "maester",
+        "consultant"
+    ],
+    "version": "0.10.1",
+    "homepage": "https://github.com/eserozvataf/jsmake-stack#readme",
+    "author": "Eser Ozvataf <eser@ozvataf.com> (https://twitter.com/eser)",
+    "contributors": [
+        {
+            "name": "Eser Ozvataf",
+            "email": "eser@ozvataf.com",
+            "url": "https://eser.ozvataf.com/"
+        }
+    ],
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/eserozvataf/jsmake-stack.git"
+    },
+    "bugs": {
+        "url": "https://github.com/eserozvataf/jsmake-stack/issues"
+    },
+    "license": "Apache-2.0",
+    "main": "./dist/index.js",
+    "_type": "module",
+    "types": "./dist/index.d.ts",
+    "engines": {
+        "node": ">=10.13.0"
+    },
+    "scripts": {
+        "cleanup": "rm -rf yarn.lock node_modules/ dist/",
+        "lint": "eslint --ext .js,.jsx,.ts,.tsx,.mjs ./src/",
+        "lint:fix": "eslint --ext .js,.jsx,.ts,.tsx,.mjs --fix ./src/",
+        "test": "jest --passWithNoTests",
+        "test:coverage": "jest --passWithNoTests --coverage && codecov",
+        "validate": "npm-run-all --parallel lint test",
+        "compile:ponyfills": "rollup -c --target ponyfills && cp package.json LICENSE *.md ./dist/ponyfills/",
+        "compile:immunity": "rollup -c --target immunity && cp package.json LICENSE *.md ./dist/immunity/",
+        "compile:evangelist": "rollup -c --target evangelist && cp package.json LICENSE *.md ./dist/evangelist/",
+        "compile:enthusiast": "rollup -c --target enthusiast && cp package.json LICENSE *.md ./dist/enthusiast/",
+        "compile:servicemanager": "rollup -c --target servicemanager && cp package.json LICENSE *.md ./dist/servicemanager/",
+        "compile:cofounder": "rollup -c --target cofounder && cp package.json LICENSE *.md ./dist/cofounder/",
+        "compile:senior": "rollup -c --target senior && cp package.json LICENSE *.md ./dist/senior/",
+        "compile:maester": "rollup -c --target maester && cp package.json LICENSE *.md ./dist/maester/",
+        "compile:consultant": "rollup -c --target consultant && cp package.json LICENSE *.md ./dist/consultant/",
+        "compile:jsmake": "rollup -c --target jsmake && cp package.json LICENSE *.md ./dist/jsmake/",
+        "compile:playground": "rollup -c --target playground && cp package.json LICENSE *.md ./dist/playground/",
+        "compile": "npm-run-all --sequential compile:immunity compile:ponyfills",
+        "publish:ponyfills": "yarn publish ./dist/ponyfills/",
+        "publish:immunity": "yarn publish ./dist/immunity/",
+        "publish:evangelist": "yarn publish ./dist/evangelist/",
+        "publish:enthusiast": "yarn publish ./dist/enthusiast/",
+        "publish:servicemanager": "yarn publish ./dist/servicemanager/",
+        "publish:cofounder": "yarn publish ./dist/cofounder/",
+        "publish:senior": "yarn publish ./dist/senior/",
+        "publish:maester": "yarn publish ./dist/maester/",
+        "publish:consultant": "yarn publish ./dist/consultant/",
+        "publish:jsmake": "yarn publish ./dist/jsmake/"
+    },
+    "dependencies": {},
+    "devDependencies": {
+        "@rollup/plugin-alias": "^3.0.1",
+        "@types/jest": "^25.1.2",
+        "@types/node": "^13.7.1",
+        "@typescript-eslint/parser": "^2.19.2",
+        "codecov": "^3.6.5",
+        "eslint": "^6.8.0",
+        "eslint-config-eser": "^2.1.8",
+        "eslint-import-resolver-typescript": "^2.0.0",
+        "eslint-plugin-import": "^2.20.1",
+        "husky": "^4.2.3",
+        "jest": "^25.1.0",
+        "metascript": "^1.0.0",
+        "npm-run-all": "^4.1.5",
+        "rollup": "^1.31.1",
+        "rollup-plugin-dts": "^1.2.1",
+        "rollup-plugin-size-snapshot": "^0.11.0",
+        "rollup-plugin-terser": "^5.2.0",
+        "rollup-plugin-typescript2": "^0.26.0",
+        "ts-jest": "^25.2.0",
+        "typescript": "^3.7.5"
+    },
+    "husky": {
+        "hooks": {
+            "pre-commit": "yarn run validate",
+            "pre-push": "yarn run validate"
+        }
+    }
+}

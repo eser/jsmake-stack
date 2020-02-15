@@ -1,8 +1,9 @@
-import metascript from 'rollup-plugin-metascript';
+import alias from '@rollup/plugin-alias';
 import typescript from 'rollup-plugin-typescript2';
 import { terser } from 'rollup-plugin-terser';
 import { sizeSnapshot } from 'rollup-plugin-size-snapshot';
-import dts from 'rollup-plugin-dts';
+// import dts from 'rollup-plugin-dts';
+import typescriptModule from 'typescript';
 import pkg from './package.json';
 
 export default (args) => {
@@ -40,17 +41,61 @@ export default (args) => {
                     format: 'es',
                 },
             ],
-            external: [], // Object.keys(pkg.dependencies),
+            external: [
+                ...Object.keys(pkg.dependencies || {}),
+                ...Object.keys(pkg.peerDependencies || {}),
+                'ponyfills',
+                'immunity',
+                'evangelist',
+                'enthusiast',
+                'servicemanager',
+                'cofounder',
+                'senior',
+                'maester',
+                'consultant',
+                'jsmake',
+            ],
             plugins: [
-                metascript({
-                    scope: {
-                        target: argTarget,
-                    },
+                (argTarget !== 'playground') && alias({
+                    entries: [
+                        // { find: '../../ponyfills', replacement: 'ponyfills' },
+                        // { find: '../ponyfills', replacement: 'ponyfills' },
+
+                        // { find: '../../immunity', replacement: 'immunity' },
+                        // { find: '../immunity', replacement: 'immunity' },
+
+                        // { find: '../../evangelist', replacement: 'evangelist' },
+                        // { find: '../evangelist', replacement: 'evangelist' },
+
+                        // { find: '../../enthusiast', replacement: 'enthusiast' },
+                        // { find: '../enthusiast', replacement: 'enthusiast' },
+
+                        // { find: '../../servicemanager', replacement: 'servicemanager' },
+                        // { find: '../servicemanager', replacement: 'servicemanager' },
+
+                        // { find: '../../cofounder', replacement: 'cofounder' },
+                        // { find: '../cofounder', replacement: 'cofounder' },
+
+                        // { find: '../../senior', replacement: 'senior' },
+                        // { find: '../senior', replacement: 'senior' },
+
+                        // { find: '../../maester', replacement: 'maester' },
+                        // { find: '../maester', replacement: 'maester' },
+
+                        // { find: '../../consultant', replacement: 'consultant' },
+                        // { find: '../consultant', replacement: 'consultant' },
+
+                        // { find: '../../jsmake', replacement: 'jsmake' },
+                        // { find: '../jsmake', replacement: 'jsmake' },
+                    ],
                 }),
                 typescript({
+                    typescript: typescriptModule,
+                    useTsconfigDeclarationDir: true,
                     tsconfigOverride: {
                         compilerOptions: {
-                            declaration: false,
+                            declaration: true,
+                            declarationDir: `./tmp/declarations/${argTarget}`,
                             module: 'es2015',
                         },
                     },
@@ -62,7 +107,7 @@ export default (args) => {
             ],
         },
         // {
-        //     input: `./dist/${argTarget}/index.d.ts`,
+        //     input: `./tmp/declarations/${argTarget}/**/*.d.ts`,
         //     output: [
         //         // ES module
         //         {
