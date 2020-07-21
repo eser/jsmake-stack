@@ -77,7 +77,7 @@
         "@types/jest": "^25.1.2",
         "@types/node": "^13.7.1",
         "@typescript-eslint/parser": "^2.19.2",
-        "codecov": "^3.6.5",
+        "codecov": "^3.7.1",
         "eslint": "^6.8.0",
         "eslint-config-eser": "^2.1.8",
         "eslint-import-resolver-typescript": "^2.0.0",
